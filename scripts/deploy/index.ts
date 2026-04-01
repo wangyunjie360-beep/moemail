@@ -474,8 +474,7 @@ const updateEnvVar = (name: string, value: string) => {
  */
 const main = async () => {
   try {
-    console.log("🚀 Starting deployment process...");
-
+    console.log(" Starting deployment process...");
     validateEnvironment();
     setupEnvFile();
     setupWranglerConfigs();
@@ -484,11 +483,13 @@ const main = async () => {
     await checkAndCreateKVNamespace();
     await checkAndCreatePages();
     pushPagesSecret();
-    deployPages();
+
+    // 先注释掉这句，避免 GitHub Action 再手动部署 Pages
+    // deployPages();
+
     deployEmailWorker();
     deployCleanupWorker();
-
-    console.log("🎉 Deployment completed successfully");
+    console.log(" Deployment completed successfully");
   } catch (error) {
     console.error("❌ Deployment failed:", error);
     process.exit(1);
